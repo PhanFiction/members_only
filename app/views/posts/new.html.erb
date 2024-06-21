@@ -1,0 +1,11 @@
+<%= button_to "logout", destroy_user_session_path, method: :delete  %>
+ <%= link_to "Posts", posts_path %>
+<%= @user.username %>
+
+<%= form_with model: [@user, @user.posts.build], class: "flex flex-col bg-red-50 p-4" do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :body, "body:" %>
+  <%= form.text_field :body %>
+  <%= form.submit "Submit", class: "bg-blue-50 p-2 rounded-lg mt-4 cursor-pointer" %>
+<% end %>

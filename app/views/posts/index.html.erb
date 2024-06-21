@@ -1,0 +1,26 @@
+<h1>Posts</h1>
+
+<% if user_signed_in? %>
+  <%= link_to "Create Post", new_user_post_path(current_user.id) %>
+<% else %>
+  <%= link_to "Login", new_user_session_path %>
+<% end %>
+
+<ul id="posts">
+  <% @posts.each do |post| %>
+    <li class="post">
+      <div class="title"><%= post.title %></div>
+      <div class="author">From <strong><%= post.user.username %></strong></div>
+      <% if user_signed_in? %>
+        <% if current_user.id == post.user.id %>
+          <%# the [post.user, post] will create path to users/:id/post/:id %>
+          <%= link_to "Destroy Comment", [post.user, post], data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %>
+        <% end %>
+      <% end %>
+      <br>
+    </li>
+  <% end %>
+</ul>
